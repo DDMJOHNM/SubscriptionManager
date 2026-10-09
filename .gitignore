@@ -1,0 +1,10 @@
+node_modules/
+.serverless/
+**/.serverless/
+.env
+.env.*
+!.env.example
+.DS_Store
+*.log
+node_modules
+.serverless

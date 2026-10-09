@@ -1,0 +1,22 @@
+{
+  "name": "online-store",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "serverless-http": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.164",
+    "@types/express": "^5.0.3",
+    "@types/supertest": "^6.0.3",
+    "serverless-step-functions": "^3.31.2",
+    "supertest": "^7.1.4",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
+}

@@ -1,0 +1,43 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: duskaotearoa
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+app: online-store
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: Users
+
+provider:
+  name: aws
+  runtime: nodejs24.x
+  architecture: arm64
+  # Uncomment to easily set up a custom domain. Read the docs for more details:
+  # https://www.serverless.com/framework/docs/providers/aws/guide/domains
+  # domain: api.example.com
+
+functions:
+  createUser:
+    handler: handlers/createUser.createUser
+    events:
+      - http:
+          path: /users/create
+          method: post
+  
+
+plugins:
+  - serverless-step-functions
+
+# stepFunctions:
+#   stateMachines:
+#     processOrderWorkflow:
+#       name: processOrderWorkflow
+#       definition:
+#         Comment: "An example serverless workflow using Step Functions"
+#         StartAt: FirstStep
+#         States:
+#           FirstStep:
+#             Type: Task
+#             Resource: "arn:aws:lambda:${aws:region}:${aws:accountId}:function:${self:service}-${opt:stage}-firstTask"
+#             Next: SecondStep
+#           SecondStep:
+#             Type: Task
+#             Resource: "arn:aws:lambda:${aws:region}:${aws:accountId}:function:${self:service}-${opt:stage}-secondTask"
+#             End: true
