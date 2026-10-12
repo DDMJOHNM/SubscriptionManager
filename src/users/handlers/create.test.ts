@@ -1,15 +1,15 @@
 import { describe, expect, it, vi } from "vitest";
 
-import { CreateUserUseCase } from "../use-cases/create-user.ts";
+import { UserService } from "../user.service.ts";
 import type { UserRepository } from "../domain/user.repository.ts";
 
 describe("createUser", () => {
   it("returns a successful response", async () => {
     const createUser = vi.fn(async (user) => user);
     const repository: UserRepository = { createUser };
-    const useCase = new CreateUserUseCase(repository);
+    const userService = new UserService(repository);
 
-    const response = await useCase.execute({
+    const response = await userService.createUser({
       name: "Jane Doe",
       email: "jane@example.com",
       password: "secret",
@@ -26,9 +26,9 @@ describe("createUser", () => {
 
   it("rejects a user missing required fields", async () => {
     const repository: UserRepository = { createUser: vi.fn() };
-    const useCase = new CreateUserUseCase(repository);
+    const userService = new UserService(repository);
 
-    await expect(useCase.execute({ name: "Jane Doe", email: "jane@example.com" })).rejects.toThrow(
+    await expect(userService.createUser({ name: "Jane Doe", email: "jane@example.com" })).rejects.toThrow(
       "Invalid user data.",
     );
   });

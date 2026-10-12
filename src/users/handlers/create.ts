@@ -1,7 +1,7 @@
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import type { User } from "../domain/user.entity.ts";
 import type { UserRepository } from "../domain/user.repository.ts";
-import { CreateUserUseCase, InvalidUserDataError } from "../use-cases/create-user.ts";
+import { InvalidUserDataError, UserService } from "../user.service.ts";
 
 const users = new Map<string, User>();
 
@@ -12,14 +12,14 @@ const userRepository: UserRepository = {
   },
 };
 
-const createUser = new CreateUserUseCase(userRepository);
+const userService = new UserService(userRepository);
 
 export async function handler(
   event: APIGatewayProxyEvent,
 ): Promise<APIGatewayProxyResult> {
   try {
     const body = JSON.parse(event.body ?? "{}") as Partial<User>;
-    const createdUser = await createUser.execute(body);
+    const createdUser = await userService.createUser(body);
 
     return {
       statusCode: 200,
