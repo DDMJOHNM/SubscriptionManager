@@ -15,10 +15,10 @@ provider:
 
 functions:
   createUser:
-    handler: handlers/createUser.createUser
+    handler: handlers/create.handler
     events:
       - http:
-          path: /users/create
+          path: domain/users/create
           method: post
   
 

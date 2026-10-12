@@ -26,26 +26,11 @@ Use:
 
 ```
 online-store/
-  services/
-    users/
+  src/
+    domain/
+      users/      
       serverless.yml
-      handlers/
-    catalog/
-      serverless.yml
-      handlers/
-    subscriptions/
-      serverless.yml
-      handlers/
-    payments/
-      serverless.yml
-      handlers/
-    notifications/
-      serverless.yml
-      handlers/
-  workflows/
-    checkout/
-      serverless.yml
-      handlers/
+   
   serverless-compose.yml
 ```
 
@@ -54,24 +39,8 @@ online-store/
 ```
 npm install
 serverless deploy
-curl https://xxxxxxx.execute-api.us-east-1.amazonaws.com/
 
 - Local Dev
 serverless dev
 
-```
-
-## Endpoint Tests 
-
-```
-curl --request POST \
-  'https://1m65skl5z7.execute-api.us-east-1.amazonaws.com/dev/users/create' \
-  --header 'Content-Type: application/json' \
-  --data '{
-    "id": "user-1",
-    "name": "Jane Doe",
-    "email": "jane@example.com",
-    "password": "secret"
-  }'
-  
 ```
