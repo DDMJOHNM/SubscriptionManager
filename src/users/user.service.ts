@@ -8,7 +8,7 @@ export class InvalidUserDataError extends Error {
   }
 }
 
-export class UserService {
+export class UserService implements UserService {
   private userRepository: UserRepository;
 
   constructor(userRepository: UserRepository) {
