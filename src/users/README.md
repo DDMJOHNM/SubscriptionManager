@@ -1,6 +1,6 @@
 # User Service
 
-![system design](./documentation/userservice.png)
+![system design](../../documentation/userservice.png)
 
 Domain Logic (Core): At the heart of the hexagon is the domain logic, representing the pure business rules of the application.
 Ports: These are abstractions or interfaces that define how the external systems should communicate with the core logic.
