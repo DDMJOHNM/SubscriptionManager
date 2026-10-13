@@ -1,7 +1,7 @@
 name: Release
 on:
-  workflow_dispatch:
-  # Or trigger automatically after staging succeeds
+  push:
+    branches: [main]
 
 jobs:
   deploy-production:
