@@ -22,7 +22,17 @@ curl --request POST \
   }'
   
 serverless users logs -f createUser
+```
 
+## Deployment
+
+```
+    manual step (tests must pass on the pipeline)
+    serverless deploy
+    CreateUserLambdaFunctionQualifiedArn: arn:aws:lambda:us-east-1:051826704696:function:Users-dev-createUser:3
+    ServiceEndpoint: https://1m65skl5z7.execute-api.us-east-1.amazonaws.com/dev
+    ServerlessDeploymentBucketName: serverless-framework-deployments-us-east-1-e69b10d0-edb3
+ 
 ```
 
 References:
