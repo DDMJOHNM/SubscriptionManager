@@ -15,7 +15,7 @@ export class UserService implements UserService {
     this.userRepository = userRepository;
   }
 
-  async createUser(input: { name?: string; email?: string; password?: string }): Promise<User> {
+  async createUser(input: { name: string; email: string; password: string }): Promise<User> {
     if (!input.name || !input.email) {
       throw new InvalidUserDataError();
     }
@@ -24,7 +24,7 @@ export class UserService implements UserService {
       id: crypto.randomUUID(),
       name: input.name,
       email: input.email,
-      password: input.password ?? null,
+      password: input.password,
     };
 
     return this.userRepository.createUser(newUser);

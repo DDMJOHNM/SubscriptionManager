@@ -12,10 +12,15 @@ export async function handler(
 ): Promise<APIGatewayProxyResult> {
   try {
     const body = JSON.parse(event.body ?? "{}") as Partial<User>;
+    const { name, email, password } = body;
+    if (!name || !email || !password) {
+      throw new InvalidUserDataError();
+    }
+
     const createdUser = await userService.createUser({
-      name: body.name,
-      email: body.email,
-      password: body.password ?? undefined,
+      name,
+      email,
+      password,
     });
 
     return {

@@ -28,8 +28,8 @@ describe("createUser", () => {
     const repository: UserRepository = { createUser: vi.fn() };
     const userService = new UserService(repository);
 
-    await expect(userService.createUser({ name: "Jane Doe", email: "jane@example.com" })).rejects.toThrow(
-      "Invalid user data.",
-    );
+    await expect(
+      userService.createUser({ name: "", email: "jane@example.com", password: "secret" }),
+    ).rejects.toThrow("Invalid user data.");
   });
 });
