@@ -45,3 +45,9 @@ serverless dev
 
 ```
 
+## Debug
+
+```
+After Deploy Failure
+aws cloudformation describe-events --stack-name Users-dev --filters FailedEvents=true
+```

@@ -24,8 +24,22 @@ functions:
       - http:
           path: domain/users/create
           method: post
-  
-
+          
+resources:
+  Resources:
+    UsersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: subscriptionUsers
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+                
+                    
 plugins:
   - serverless-step-functions
 

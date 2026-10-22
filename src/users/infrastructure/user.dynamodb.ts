@@ -14,14 +14,14 @@ export class UserDynamoDBRepository implements UserRepository {
 
     async findAll(): Promise<User[]> {
         const result = await this.documentClient.send(new ScanCommand({
-            TableName: "users",
+            TableName: "subscriptionUsers",
         }));
         return (result.Items ?? []) as User[];
     }
 
     async createUser(user: User): Promise<User> {
         await this.documentClient.send(new PutCommand({
-            TableName: "users",
+            TableName: "subscriptionUsers",
             Item: user,
         }));
         return user;
@@ -29,7 +29,7 @@ export class UserDynamoDBRepository implements UserRepository {
 
     async findById(id: string): Promise<User | null> {
         const result = await this.documentClient.send(new GetCommand({
-            TableName: "users",
+            TableName: "subscriptionUsers",
             Key: { id },
         }));
         return (result.Item as User | undefined) ?? null;
