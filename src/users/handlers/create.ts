@@ -1,17 +1,10 @@
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import type { User } from "../domain/user.entity.ts";
-import type { UserRepository } from "../domain/user.repository.ts";
+import { UserDynamoDBRepository } from "../infrastructure/user.dynamodb.ts";
 import { InvalidUserDataError, UserService } from "../user.service.ts";
 
-const users = new Map<string, User>();
-
-const userRepository: UserRepository = {
-  async createUser(user: User): Promise<User> {
-    users.set(user.id ?? "", user);
-    return user;
-  },
-};
-
+const userRepository = new UserDynamoDBRepository(new DynamoDBClient({}));
 const userService = new UserService(userRepository);
 
 export async function handler(

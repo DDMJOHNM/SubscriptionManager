@@ -9,6 +9,16 @@ provider:
   name: aws
   runtime: nodejs24.x
   architecture: arm64
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:PutItem
+            - dynamodb:GetItem
+            - dynamodb:Scan
+          Resource:
+            - arn:aws:dynamodb:${aws:region}:${aws:accountId}:table/subscriptionUsers
   # Uncomment to easily set up a custom domain. Read the docs for more details:
   # https://www.serverless.com/framework/docs/providers/aws/guide/domains
   # domain: api.example.com
