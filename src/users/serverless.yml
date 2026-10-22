@@ -13,6 +13,10 @@ provider:
   # https://www.serverless.com/framework/docs/providers/aws/guide/domains
   # domain: api.example.com
 
+build:
+  esbuild:
+    sourcemap: true
+
 functions:
   createUser:
     handler: handlers/create.handler

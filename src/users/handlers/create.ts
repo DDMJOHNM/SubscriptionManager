@@ -7,7 +7,7 @@ const users = new Map<string, User>();
 
 const userRepository: UserRepository = {
   async createUser(user: User): Promise<User> {
-    users.set(user.id, user);
+    users.set(user.id ?? "", user);
     return user;
   },
 };
@@ -19,7 +19,11 @@ export async function handler(
 ): Promise<APIGatewayProxyResult> {
   try {
     const body = JSON.parse(event.body ?? "{}") as Partial<User>;
-    const createdUser = await userService.createUser(body);
+    const createdUser = await userService.createUser({
+      name: body.name,
+      email: body.email,
+      password: body.password ?? undefined,
+    });
 
     return {
       statusCode: 200,
