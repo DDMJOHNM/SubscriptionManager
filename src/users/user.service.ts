@@ -17,16 +17,22 @@ export class UserService implements UserService {
     this.userRepository = userRepository;
   }
 
-  async createUser(input: { name: string; email: string; password: string }): Promise<User> {
-    if (!input.name || !input.email) {
+  async createUser(input: { firstName: string; middleName: string; familyName: string; email: string }): Promise<User> {
+    if (!input.firstName || !input.middleName || !input.familyName || !input.email) {
       throw new InvalidUserDataError();
     }
 
     const newUser: User = {
       id: crypto.randomUUID(),
-      name: input.name,
+      firstName: input.firstName,
+      middleName: input.middleName,
+      familyName: input.familyName,
       email: input.email,
-      password: input.password,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      deletedAt: null,
+      isActive: true,
+      isDeleted: false,
     };
 
     return this.userRepository.createUser(newUser);

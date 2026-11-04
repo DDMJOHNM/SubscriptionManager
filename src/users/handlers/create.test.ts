@@ -2,6 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 
 import { UserService } from "../user.service.ts";
 import type { UserRepository } from "../domain/user.repository.ts";
+import type { User } from "../domain/user.entity.ts";
 
 describe("createUser", () => {
   it("returns a successful response", async () => {
@@ -10,16 +11,23 @@ describe("createUser", () => {
     const userService = new UserService(repository);
 
     const response = await userService.createUser({
-      name: "Jane Doe",
+      firstName: "Jane",
+      middleName: "Doe",
+      familyName: "Doe",
       email: "jane@example.com",
-      password: "secret",
     });
 
     expect(response).toEqual({
       id: expect.any(String),
-      name: "Jane Doe",
+      firstName: "Jane",
+      middleName: "Doe",
+      familyName: "Doe",
       email: "jane@example.com",
-      password: "secret",
+      createdAt: expect.any(Date),
+      updatedAt: expect.any(Date),
+      deletedAt: null,
+      isActive: true,
+      isDeleted: false,
     });
     expect(createUser).toHaveBeenCalledWith(response);
   });
@@ -29,7 +37,7 @@ describe("createUser", () => {
     const userService = new UserService(repository);
 
     await expect(
-      userService.createUser({ name: "", email: "jane@example.com", password: "secret" }),
+      userService.createUser({ firstName: "", middleName: "", familyName: "", email: "jane@example.com" }),
     ).rejects.toThrow("Invalid user data.");
   });
 });

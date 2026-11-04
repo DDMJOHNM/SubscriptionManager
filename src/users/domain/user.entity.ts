@@ -1,6 +1,12 @@
 export interface User {
   id: string| null;
-  name: string;
+  firstName: string;
+  middleName: string;
+  familyName: string;
   email: string;
-  password: string;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date | null;
+  isActive: boolean;
+  isDeleted: boolean;
 }
