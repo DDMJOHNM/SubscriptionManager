@@ -11,6 +11,14 @@ provider:
   architecture: arm64
   environment:
     COGNITO_CLIENT_ID: ${env:COGNITO_CLIENT_ID}
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:PutItem
+          Resource:
+            - arn:aws:dynamodb:${aws:region}:${aws:accountId}:table/subscriptionUsers
   # Uncomment to easily set up a custom domain. Read the docs for more details:
   # https://www.serverless.com/framework/docs/providers/aws/guide/domains
   # domain: api.example.com

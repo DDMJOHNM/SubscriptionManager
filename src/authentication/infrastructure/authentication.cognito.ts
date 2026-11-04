@@ -1,15 +1,20 @@
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { CognitoIdentityProviderClient, SignUpCommand } from "@aws-sdk/client-cognito-identity-provider";
 import type { Authentication, AuthenticationResponse } from "../domain/authentication.entity.ts";
 import type { AuthenticationRepository } from "../domain/authentication.repository.ts";
-import { CognitoIdentityProviderClient, SignUpCommand } from "@aws-sdk/client-cognito-identity-provider";
+import { UserDynamoDBRepository } from "../../users/infrastructure/user.dynamodb.ts";
+import { UserService } from "../../users/user.service.ts";
 
 export class AuthenticationCognito implements AuthenticationRepository {
   
     private readonly cognitoClient: CognitoIdentityProviderClient;
+    private readonly userService: UserService;
 
     constructor() {
         this.cognitoClient = new CognitoIdentityProviderClient({
             region: process.env.AWS_REGION
         });
+        this.userService = new UserService(new UserDynamoDBRepository(new DynamoDBClient({})));
      }
     
     async signup(authentication: Authentication): Promise<AuthenticationResponse> {
@@ -38,6 +43,13 @@ export class AuthenticationCognito implements AuthenticationRepository {
                 Password: authentication.password,
             });
             await this.cognitoClient.send(command);
+
+            await this.userService.createUser({
+                firstName: authentication.firstName,
+                middleName: authentication.middleName,
+                familyName: authentication.familyName,
+                email: authentication.email,
+            });
 
             return {
                 statusCode: 200,
