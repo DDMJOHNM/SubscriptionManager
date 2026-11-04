@@ -3,3 +3,5 @@ org: duskaotearoa
 services:
   users:
     path: src/users
+  authentication:
+    path: src/authentication

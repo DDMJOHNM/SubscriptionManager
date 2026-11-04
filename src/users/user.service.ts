@@ -8,6 +8,8 @@ export class InvalidUserDataError extends Error {
   }
 }
 
+//TODO: Add check to see if user is in the database already
+
 export class UserService implements UserService {
   private userRepository: UserRepository;
 
