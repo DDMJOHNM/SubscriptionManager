@@ -44,12 +44,22 @@ export class AuthenticationCognito implements AuthenticationRepository {
             });
             await this.cognitoClient.send(command);
 
+            try {
+
             await this.userService.createUser({
                 firstName: authentication.firstName,
                 middleName: authentication.middleName,
                 familyName: authentication.familyName,
                 email: authentication.email,
-            });
+            });            
+
+            } catch (error) {
+                console.error(error);
+                return {
+                    statusCode: 500,
+                    message: (error as Error).message,
+                } as AuthenticationResponse;
+            }
 
             return {
                 statusCode: 200,
